@@ -20,13 +20,11 @@ jobs:
         with:
           dotnet-version: "6.0.x"
 
-      - name: install azurite
+      - name: install & run azurite
         run: |
           npm install -g azurite
           mkdir ~/azurite
-
-      - name: run azurite
-        run: azurite-blob -s -l ~/azurite &
+          azurite-blob -s -l ~/azurite &
 
       - name: Test it
         run: dotnet run
