@@ -19,7 +19,10 @@ public static class Proc
     {
         foreach (var p in Process.GetProcessesByName("node"))
         {
-            if (p.GetCommandLine().Contains("azurite", StringComparison.OrdinalIgnoreCase))
+            var cmdLine = p.GetCommandLine();
+            Console.WriteLine($"{p.ProcessName} - {cmdLine}");
+
+            if (cmdLine.Contains("azurite", StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
