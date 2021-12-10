@@ -17,11 +17,6 @@ public static class Proc
 {
     public static bool IsAzuriteRunning()
     {
-        foreach (var p in Process.GetProcesses())
-        {
-            Console.WriteLine(p.ProcessName);
-        }
-
         foreach (var p in Process.GetProcessesByName("node"))
         {
             var cmdLine = p.GetCommandLine();

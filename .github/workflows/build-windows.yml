@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 
-name: build
+name: build-windows
 
 on: [push]
 
@@ -10,10 +10,7 @@ env:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -29,7 +26,7 @@ jobs:
           mkdir ~/azurite
 
       - name: run azurite
-        run: azurite-blob -s -l ~/azurite &
+        run: start-process -FilePath "azurite-blob.cmd" -ArgumentList ("-s", "-l", "$env:USERPROFILE/azurite")
 
       - name: Test it
         run: dotnet run

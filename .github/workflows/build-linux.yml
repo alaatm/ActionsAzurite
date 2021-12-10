@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: build-linux
+
+on: [push]
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_NOLOGO: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setup .net
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "6.0.x"
+
+      - name: install azurite
+        run: |
+          npm install -g azurite
+          mkdir ~/azurite
+
+      - name: run azurite
+        run: azurite-blob -s -l ~/azurite &
+
+      - name: Test it
+        run: dotnet run
