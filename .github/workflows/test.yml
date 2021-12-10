@@ -4,6 +4,10 @@ name: build
 
 on: [push]
 
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_NOLOGO: true
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
